@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="jumbotron">
+        <h1>About our Project</h1>
+        <p>We have decided that our project will revolve around user behavior on Reddit. Reddit is simply a
+            website which has many communities, also known as subreddits. In a subreddit, you can post things related
+            to that subreddit and other users can voice their opinions on how they feel about your post through
+            comments, upvotes(reddit equivalent to a ‘like’), or downvotes(reddit equivalent to a ‘dislike’). </p>
+
+        <p>Posts on Reddit are usually texts, images, videos, or an external link to an image/video.
+            Each subreddit on Reddit has its own set of rules and moderation team. Some subreddits are smaller whereas
+            others are very large. Reddit is made up of these subreddits and can be accessed by anyone with the Internet. </p>
+
+        <p>Although this is true, many subreddits are explicit and thus, children must take precaution. Nonetheless,
+            user behavior on Reddit is a vital part of how the website functions. Reddit users are no different
+            than regular humans. Arguments or fights are bound to start on certain subreddits. This user behavior
+            on Reddit is what we are interested in. We will actively look at how users on Reddit comment on some of
+            the most trending subreddits dynamically. From that subreddit, we will choose one single user and
+            observe how their behavior is compared to others based on their recent comments on their profile.</p>
+
+        <br>
+        <br>
+        <br>
+        <form action="{{ url_for('report') }}">
+            <label for="userName"><h3>Choose an analyzed user to generate a report for:  </h3></label>
+            <select id="userName" name="userName">
+                {% for i in range(0, len) %}
+                    <option value="{{ userList[i] }}">{{ userList[i] }}</option>
+                {%  endfor %}
+            </select>
+            <input type="submit" value="View Report">
+        </form>
+        <br>
+        <br>
+        <br>
+
+                <h1>Our Data Gathering Methodology</h1>
+        <p>Our first step will be to choose one subreddit, say S, from the top 25 subreddits that have been trending
+            on that day. This will be a random selection. Once we have S, we will look at the top rated post of the
+            day on subreddit S. It is guaranteed that subreddit S will have a top post for the day because it has
+            been trending on that day. </p>
+
+        <p>Let’s name that particular post P. We will look inside P and find the
+            most controversial comment, say C, using the Reddit API. Once we find it, we will look at who commented
+            C. The author of C is who we will observe and look at. We will go to their profile and look at their 10
+            most popular comments. Each comment must be on a unique post, otherwise we will not consider it. Also,
+            each post must have at least 100 comments. If the user or post simply does not have enough comments for
+            us to analyze, we will go back and try to find another controversial comment.
+
+        <p>Moving on, we will look
+            at each of these 10 comments and see where they were posted. We will look at that post and the comments
+            on that post. The comments we will look at must match some percentage in similarity to the original
+            comment (using an algorithm). We assume that we will be using 60-80% for now. If a comment matches
+            the original comment, we will consider that comment and add it to the comments we are analyzing.
+            We will store up to 50 comments. If we run out of comments to compare, then that is fine.
+            We are only storing 50 comments, so we will stop analyzing the user’s comments either when we’ve
+            analyzed all comments or we run out of comments to analyze.
+
+        <p>This process will be repeated 5 times
+            for accurate results, making sure not to pick the same user again of course. After this, our data will
+            be complete and we will be able to program our frontend and supply information on a webpage.</p>
+
+    </div>
+{% endblock %}

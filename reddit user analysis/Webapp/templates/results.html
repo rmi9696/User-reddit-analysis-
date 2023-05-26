@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+    {% if validQuery %}
+        <div class="jumbotron">
+            <form action="{{ url_for('queryzone') }}">
+                <input class="btn btn-outline-primary" name="requery" type="submit" value="Make Another Query">
+            </form>
+            <br>
+            {% if numColumns == 0 %}
+                <h1>INSERT/UPDATE/DELETE Query Successful! Run a SELECT statement to check results</h1>
+            {% else %}
+                <table class="table table-striped table-dark">
+                    <thead>
+                        <tr>
+                            {% for column in columnTitles %}
+                                <th scope="col">{{ column }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for tuple in tuplesReceived %}
+                            <tr>
+                                {% for attribute in tuple %}
+                                    <td>{{ attribute }}</td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+        </div>
+    {% else %}
+        <div class="jumbotron">
+            <form action="{{ url_for('queryzone') }}">
+                <input class="btn btn-outline-primary" name="requery" type="submit" value="Make Another Query">
+            </form>
+            <br>
+            <h1>Sorry, your query syntax was invalid, could not query database. Please try again</h1>
+        </div>
+    {% endif %}
+{% endblock %}

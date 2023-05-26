@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="jumbotron">
+        <h2 style="text-align:center;">The user you have chosen to view a report on is {{ userName }}</h2>
+    </div>
+    <div class="container">
+        <h4>Here are some quick stats on {{ userName }} that were collected at the time of analysis</h4>
+        <table class="table table-striped table-dark">
+            <thead>
+                <tr>
+                    <th scope="col">User ID</th>
+                    <th scope="col">Post Karma</th>
+                    <th scope="col">Comment Karma</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ userId }}</td>
+                    <td>{{ postKarma }}</td>
+                    <td>{{ commentKarma }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h5>Posts {{ userName }} had recently commented on during the time of analysis</h5>
+        <table class="table table-dark">
+            <thead>
+                <tr>
+                    <th scope="col">Post Title</th>
+                    <th scope="col">Post ID/Link</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for key, value in posts.items() %}
+                    <tr>
+                        <td>{{ key }}</td>
+                        <td><a href="https://reddit.com/{{ value }}">{{ value }}</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <br>
+        <h5>Subreddits {{ userName }} had posted their 5 most popular comments in </h5>
+        <ul class="list-group">
+                {% for key, value in topCommentDistribution.items() %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{ key }}
+                        <span class="badge badge-primary badge-pill">{{ value }}</span>
+                    </li>
+                {% endfor %}
+        </ul>
+
+        <br>
+        <h5>Pie Chart of Percentage of Subreddits {{ userName }} Had Top Comments In That were Top Subreddits</h5>
+        <img style="  display: block; margin-left: auto; margin-right: auto; width: 50%;" src="data:image/png;base64,{{ pieChart }}">
+
+        <br>
+        <h5>Box Plot of Similarity of Comments Similar to {{ userName }}'s Top Comments</h5>
+        <img style="  display: block; margin-left: auto; margin-right: auto; width: 50%;" src="data:image/png;base64,{{ boxplot }}">
+
+        <br>
+        <br>
+        <h5><a href = "https://mode.com/blog/violin-plot-examples/">Violin Plot</a> of Similarity of Comments Similar
+            to {{ userName }}'s Top Comments</h5>
+        <img style="  display: block; margin-left: auto; margin-right: auto; width: 50%;" src="data:image/png;base64,{{ violinplot }}">
+
+
+    </div>
+
+{% endblock %}

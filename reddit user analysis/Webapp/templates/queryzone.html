@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+    {% if isCorrect %}
+        <div class="jumbotron">
+            <h2>You now have access to querying!!!!!</h2>
+            <br>
+            <ul>
+                <h6>The list of available tables are</h6>
+                <li>popular_subreddits</li>
+                <li>post</li>
+                <li>reddit_user</li>
+                <li>similar_comments</li>
+                <li>subreddit</li>
+                <li>user_comment</li>
+                <li>user_top_comments</li>
+            </ul>
+            <h6>chosen_users is an active view derived from reddit_user</h6>
+            <br>
+            <form action="{{ url_for('queryresults') }}">
+                <label for="textquery" style="vertical-align: top;">Formulate Query Here</label>
+                <textarea id="textquery" name="userquery"></textarea>
+                <input type="submit" value="Execute Query">
+            </form>
+        </div>
+    {% else %}
+        <div class="jumbotron">
+            <h1>Credentials are incorrect. If password was mistyped, please try logging in again</h1>
+        </div>
+    {% endif %}
+{% endblock %}
