@@ -1,7 +1,7 @@
 # Reddit User Analysis Web Application
 # www.redditor.tk
-## Data Sourcing Backend Scripts/DB creation: Mohamed cabdulqaadir
-## Flask Webapp, REST API, Queries/Data Visualizations: abdifatah ali 
+## Data Sourcing Backend Scripts/DB creation: Mohamed Cabdulqaadir
+## Flask Webapp, REST API, Queries/Data Visualizations: Abdifatah Ali 
 ## Technologies Used
  - Python
  - Flask
